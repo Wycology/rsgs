@@ -17,3 +17,18 @@ mf_layout(title = 'Martinique',
           credits = paste0('Sources: IGN, 2018\n',
           'mapsf ',
           packageVersion('mapsf')))
+
+# Proportional symbols
+
+
+
+
+
+
+
+
+
+
+
+
+

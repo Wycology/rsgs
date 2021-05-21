@@ -19,7 +19,7 @@ s <- st_as_stars(r)
 plot(s) # Visualize the stars object
 
 # Add pixel value texts on the plot
-plot(s, text_values = TRUE, col = terrain.colors(10))
+plot(s, text_values = TRUE, col = terrain.colors(10), breaks = "equal")
 
 
 

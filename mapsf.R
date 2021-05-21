@@ -278,3 +278,38 @@ mf_layout(title = "Commuting to Fort-de-France",
                            "mapsf ", 
                            packageVersion("mapsf")), 
           arrow = FALSE)
+
+# Map with longitude and latitude axes
+library(mapsf)
+
+# Loading the sf object from the package
+mtq <- mf_get_mtq()
+
+# Defining margin with sufficient margins for graticules
+
+mytheme <- mf_theme('default', mar = c(2, 2, 1.2, 0)+5)
+
+# Use theme margins
+opar <- par(mar = mytheme$mar)
+plot(st_geometry(mtq),
+     border = NA, col = NA,
+     graticule = st_crs(4326),
+     axes = TRUE,
+     bg = mytheme$bg,
+     lon = seq(-62, -60, by = 0.2),
+     lat = seq(14, 15, by = 0.2))
+# Mdd the map
+mf_map(mtq, add = TRUE)
+mf_title('Map with graticules')
+par(opar)
+
+
+
+
+
+
+
+
+
+
+

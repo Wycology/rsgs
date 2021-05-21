@@ -6,3 +6,17 @@ library(stars)
 library(sf)
 
 # First is to create a raster object
+
+r <- raster(ncols = 20, nrows = 20)
+
+# Fill the raster with radom values rounded to 2 decimal places
+r[] <- round(rnorm(n = ncell(r)), 2)
+plot(r) # visualize the raster
+
+# Now convert the raster object to stars object
+s <- st_as_stars(r)
+
+plot(s) # Visualize the stars object
+
+
+

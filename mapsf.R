@@ -1,3 +1,5 @@
+# Mapping with mapsf ----
+
 library(mapsf) # for mapping sf objects
 
 mtq <- mf_get_mtq() # Loading the data-set into R environment.
@@ -7,35 +9,35 @@ mf_init(x = mtq, expandBB = rep(0, 4), theme = 'jsk') # Initializing the mapping
 # "default", "brutal", "ink", "dark", "agolalight", "candy", "darkula", "iceberg", 
 # "green", "nevermind", "jsk", "barcelona"
 
-# Plot a shadow
-mf_shadow(x = mtq, col = 'purple', cex = 2, add = TRUE)
+mf_shadow(x = mtq,        # Plot a shadow
+          col = 'purple', 
+          cex = 2, 
+          add = TRUE)
 
-# Plot municipalities
-mf_map(mtq, type = 'base', add = TRUE)
+mf_map(mtq,               # Plot municipalities
+       type = 'base', 
+       add = TRUE)
 
-# Layout
+# Map Layout ----
 mf_layout(title = 'Martinique',
           credits = paste0('Sources: IGN, 2018\n',
           'mapsf ',
           packageVersion('mapsf')))
 
-# Proportional symbols
-library(mapsf)
+# Proportional symbols ----
 
-# Import the sample data set
-mtq <- mf_get_mtq()
+mtq <- mf_get_mtq() # Import the sample data set
 
-# Initiate base map
-mf_init(x = mtq, theme = 'iceberg')
+mf_init(x = mtq,    # Initiate base map
+        theme = 'iceberg')
 
-# Plot a shadow
-mf_shadow(mtq, add = TRUE)
+mf_shadow(mtq,      # Plot a shadow
+          add = TRUE)
 
-# Plot municipalities
-mf_map(mtq, add = TRUE)
+mf_map(mtq,         # Plot municipalities
+       add = TRUE)
 
-# Plot population
-mf_map(
+mf_map(             # Plot population
   x = mtq,
   var = 'POP',
   type = 'prop',
@@ -51,7 +53,7 @@ mf_layout(title = 'Population Distribution in Martinique',
                            'mapsf ',
                            packageVersion('mapsf')))
 
-# Choropleth map
+# Choropleth map ----
 library(mapsf)
 
 # Import the sample data set

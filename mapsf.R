@@ -1,7 +1,6 @@
 library(mapsf) # for mapping sf objects
 
-# import the sample data-set
-mtq <- mf_get_mtq()
+mtq <- mf_get_mtq() # 
 
 # Initiate a basemap
 mf_init(x = mtq, theme = 'iceberg')

@@ -47,7 +47,6 @@ mf_map(             # Plot population
   leg_title = 'Total population'
 )
 
-# Layout
 mf_layout(title = 'Population Distribution in Martinique',
           credits = paste0('Sources: Insee and IGN, 2018\n',
                            'mapsf ',
@@ -56,17 +55,15 @@ mf_layout(title = 'Population Distribution in Martinique',
 # Choropleth map ----
 library(mapsf)
 
-# Import the sample data set
-mtq <- mf_get_mtq()
+mtq <- mf_get_mtq()  # Import the sample data set
 
 # Population density (inhab./km2) using sf::st_area()
 mtq$POPDENS <- 1e6 * mtq$POP / st_area(mtq)
 
-# Set a theme
-mf_theme("green")
+mf_theme("green") # Set a theme
 
-# Plot population density
-mf_map(
+
+mf_map(           # Plot population density
   x = mtq, 
   var = "POPDENS",
   type = "choro",
@@ -79,22 +76,19 @@ mf_map(
   leg_title = "Population Density\n(people per km2)"
 ) 
 
-# Layout
 mf_layout(title = "Population Distribution in Martinique", 
           credits = paste0("Sources: Insee and IGN, 2018\n",
                            "mapsf ", 
                            packageVersion("mapsf")))
 
-# Typology map
+# Typology map ----
 library(mapsf)
 
-# Import the sample data set
-mtq <- mf_get_mtq()
+mtq <- mf_get_mtq() # Import the sample data set
 
-# Set theme
-mf_theme("dark")
+mf_theme("dark") # Set theme
 
-# Plot administrative status
+# Plot administrative status ----
 mf_map(
   x = mtq, 
   var = "STATUS", 
@@ -108,24 +102,22 @@ mf_map(
   leg_title = ""
 )
 
-# Labels for a few  municipalities
+# Labels for a few  municipalities ----
 mf_label(x = mtq[mtq$STATUS != "Simple municipality", ], var = "LIBGEO", 
          cex = 0.9, halo = TRUE, r = 0.15)
 
-# Layout
 mf_layout(title = "Administrative Status", 
           credits = paste0("Sources: Insee and IGN, 2018\n",
                            "mapsf ", 
                            packageVersion("mapsf")))
 
-# Proportional symbols using choropleth coloration
-library(mapsf)
+# Proportional symbols using choropleth coloration ----
 
-# Import the sample data set
-mtq <- mf_get_mtq()
+mtq <- mf_get_mtq() # Import the sample data set
 
-# Set theme
-mf_init(x = mtq, theme = "candy", expandBB = c(0,0,0,.15))
+mf_init(x = mtq, # Set theme
+        theme = "candy", 
+        expandBB = c(0,0,0,.15))
 
 # Plot a shadow
 mf_shadow(mtq, add = TRUE)

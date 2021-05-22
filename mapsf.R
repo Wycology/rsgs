@@ -1,9 +1,8 @@
 library(mapsf) # for mapping sf objects
 
-mtq <- mf_get_mtq() # 
+mtq <- mf_get_mtq() # Loading the data-set into R environment.
 
-# Initiate a basemap
-mf_init(x = mtq, theme = 'iceberg')
+mf_init(x = mtq, theme = 'iceberg') # Initializing the mapping process
 
 # Plot a shadow
 mf_shadow(mtq, add = TRUE)

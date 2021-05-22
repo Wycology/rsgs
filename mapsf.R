@@ -205,12 +205,12 @@ mf_map(mtq, col = "#e4e9de", border = "darkseagreen4")
 mf_label(
   x = mtq, 
   var = "LIBGEO", 
-  col = "black", 
+  col = "purple", 
   cex = 0.7, 
-  font = 4,
+  font = 250,
   halo = TRUE, 
   bg = "white", 
-  r = 0.1, 
+  r = 0.4, 
   overlap = FALSE, 
   lines = FALSE
 )

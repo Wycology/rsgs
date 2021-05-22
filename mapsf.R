@@ -119,11 +119,9 @@ mf_init(x = mtq, # Set theme
         theme = "candy", 
         expandBB = c(0,0,0,.15))
 
-# Plot a shadow
-mf_shadow(mtq, add = TRUE)
+mf_shadow(mtq, add = TRUE) # Plot a shadow
 
-# Plot the municipalities
-mf_map(mtq, add = TRUE)
+mf_map(mtq, add = TRUE) # Plot the municipalities
 
 # Plot symbols with choropleth coloration
 mf_map(
@@ -148,22 +146,23 @@ mf_layout(title = "Population & Wealth in Martinique, 2015",
                            packageVersion("mapsf")), 
           frame = TRUE)
 
-# Proportional symbols with typology coloration
-library(mapsf)
+# Proportional symbols with typology coloration----
 
-# Import the sample data set
-mtq <- mf_get_mtq()
+mtq <- mf_get_mtq() # Import the sample data set
 
-# Set theme
-mf_init(x = mtq, theme = "ink", expandBB = c(0,0,0,.15))
+mf_init(x = mtq, # Set theme
+        theme = "ink", 
+        expandBB = c(0,0,0,.15))
 
-# Plot a shadow
-mf_shadow(mtq, add = TRUE)
 
-# Plot the municipalities
-mf_map(mtq, add = TRUE)
+mf_shadow(mtq,        # Plot a shadow
+          add = TRUE)
 
-# Plot symbols with choropleth coloration
+
+mf_map(mtq,           # Plot the municipalities
+       add = TRUE)
+
+# Plot symbols with choropleth coloration ----
 mf_map(
   x = mtq, 
   var = c("POP","STATUS"), 
@@ -175,16 +174,13 @@ mf_map(
   leg_title = c("Population", "Administrative\nStatus"),
   val_order = c("Prefecture", "Sub-prefecture", 
                 "Simple municipality")) 
-# Layout
 mf_layout(title = "Population Distribution in Martinique", 
           credits = paste0("Sources: Insee and IGN, 2018\n",
                            "mapsf ", 
                            packageVersion("mapsf")))
-# Label map 
-library(mapsf)
+# Label map ----
 
-# Import the sample data set
-mtq <- mf_get_mtq()
+mtq <- mf_get_mtq()  # Import the sample data set
 
 # Set theme
 my_theme <- list(

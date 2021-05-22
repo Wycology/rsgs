@@ -2,7 +2,10 @@ library(mapsf) # for mapping sf objects
 
 mtq <- mf_get_mtq() # Loading the data-set into R environment.
 
-mf_init(x = mtq, theme = 'iceberg') # Initializing the mapping process
+mf_init(x = mtq, theme = 'jsk') # Initializing the mapping process
+
+# "default", "brutal", "ink", "dark", "agolalight", "candy", "darkula", "iceberg", 
+# "green", "nevermind", "jsk", "barcelona"
 
 # Plot a shadow
 mf_shadow(mtq, add = TRUE)

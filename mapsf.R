@@ -8,7 +8,7 @@ mf_init(x = mtq, expandBB = rep(0, 4), theme = 'jsk') # Initializing the mapping
 # "green", "nevermind", "jsk", "barcelona"
 
 # Plot a shadow
-mf_shadow(mtq, add = TRUE)
+mf_shadow(x = mtq, col = 'purple', cex = 2, add = TRUE)
 
 # Plot municipalities
 mf_map(mtq, type = 'base', add = TRUE)

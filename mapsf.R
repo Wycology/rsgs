@@ -1,4 +1,4 @@
-library(mapsf)
+library(mapsf) # for mapping sf objects
 
 # import the sample data-set
 mtq <- mf_get_mtq()
@@ -302,14 +302,3 @@ plot(st_geometry(mtq),
 mf_map(mtq, add = TRUE)
 mf_title('Map with graticules')
 par(opar)
-
-
-
-
-
-
-
-
-
-
-

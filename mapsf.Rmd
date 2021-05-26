@@ -1,15 +1,18 @@
 ---
-title: "mapsf"
-author: "Wyclife Agumba Oluoch"
-date: "5/26/2021"
+title: "<center>Map building using `mapsf` package in `R`</center>"
+author: "<center>Wyclife Agumba Oluoch</center>"
+date: <center>`r Sys.time()`</center>
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+## Background
 
-## Demonstration of making maps with mapsf package
+With the steady growth in spatial analysis capabilities in `R`, there has been a number of attempts to make optimized visualizations of outputs comparable or better than traditional GUI based interfaces such as [QGIS](https://qgis.org/en/site/).In this process, several packages have been developed including tmap, mapvis, geovis among others. The list has not left our ggplot2 which is the bread-and-butter of visualization in R. When `sf` package was built for handling spatial data as regular dataframes in R, the spatial community appreciated the analysis capabilities but were not fullt satisfied with visualization of the outputs. This is the niche that has been filled by the development of `mapsf` package. In this tutorial, we are going to see how to use `mapsf` to visualize several vector map types and raster as well. 
+
+## Making maps with mapsf
 
 `mapsf` is a package which is enabling creating maps of simple features in R. For more information on the package, [see](https://github.com/riatelab/mapsf).
 
@@ -20,6 +23,8 @@ You can install and load the package with the following code:
 library(mapsf)
 ```
 
+Since it is mapping simple features, loading the library will show _Loading required package: sf_ and of course link to GEOS, GDAL, and PROJ.
+
 ## Loading data
 
 The package is coming with an inbuilt data-set for Martinique island in France. We can access the data-set and save it to an object called mtq using the following simple code:
@@ -27,3 +32,46 @@ The package is coming with an inbuilt data-set for Martinique island in France. 
 ```{r loading_data}
 mtq <- mf_get_mtq() # Most of the functions in mapsf package start with mf_
 ```
+
+We can then go ahead and initialize the mapping process. You can think of this as designing the layout pane on which to display the map in QGIS.
+
+```{r layout}
+mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk') # This is the layout to map on
+```
+There are several themes which one can pick from to use in the mapping process. Just before that, let us look at what is in the mtq object.
+
+```{r mtq_object}
+head(mtq) # multipolygon, WGS84 projection zone 20Nm 6 features and 7 fields plus bounding box. geom holds the coordinates and not regarded as a field in the 7.
+```
+
+There is a beautiful shadow feature in mapsf which can be plotted just before overlaying it with the real map. We can go ahead and plot the shadow using mf_shadow as follows:
+
+```{r shadow}
+mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(mtq, col = 'purple', cex = 2, add = TRUE) # Now we have shadow on the layout added
+```
+The next step now is to plot the map itself. 
+
+```{r the_map}
+mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(mtq, col = 'magenta', cex = 2, add = TRUE) 
+mf_map(mtq, type = 'base', add = TRUE) # Awesome
+```
+In as much as the map layout looks fine, it is still way below what mapsf can do. Let us use the mf_layout() function to create a layout more suitable for map creation. The layout will capture north arrow, scale, Source, author, package and version used, and title of the map.
+
+```{r layout_complete}
+mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+mf_layout(title = 'Martinique',
+          credits = paste0('Sources: IGN, 2018\n',
+          'mapsf ',
+          packageVersion('mapsf')))
+```
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,5 @@
 # Mapping with mapsf ----
+# Created by Agumba Oluoch
 
 library(mapsf) # for mapping sf objects
 

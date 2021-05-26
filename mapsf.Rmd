@@ -123,10 +123,55 @@ mf_map(x = mtq, var = "STATUS", type = "typo", pal = c("purple", "magenta", "cya
 mf_label(x = mtq[mtq$STATUS != "Simple municipality", ], var = "LIBGEO", 
          cex = 0.9, halo = TRUE, r = 0.15)
 ```
+Both the proportional map can be combined with choropleth coloraion. The size of circles and the color density represent different variables. This is achievable with the following code:
 
+```{r propo_choropleth}
+mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(mtq, col = 'gray', cex = 2, add = TRUE)
+mf_layout(title = 'Martinique',
+          credits = paste0('Sources: IGN, 2018\n',
+          'mapsf ',
+          packageVersion('mapsf')))
+mf_map(mtq, add = TRUE)
+mf_map(x = mtq, var = c("POP", "MED"), type = "prop_choro", border = "grey50",
+  lwd = 1, leg_pos = c("topright", "right"), leg_title = c("Population","Median\nIncome\n(in euros)"), breaks = "equal", nbreaks = 4, 
+  pal = "Greens", leg_val_rnd = c(0, -2), leg_frame = c(TRUE, TRUE)
+)
+```
 
+Proportional map and typology in one map:
 
+```{r propo_typo}
+mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(mtq, col = 'gray', cex = 2, add = TRUE)
+mf_layout(title = 'Martinique',
+          credits = paste0('Sources: IGN, 2018\n',
+          'mapsf ',
+          packageVersion('mapsf')))
+mf_map(mtq, add = TRUE)
+mf_map(x = mtq, var = c("POP","STATUS"), type = "prop_typo", symbol = "square",
+  border = "white", lwd = .5, leg_pos = c("right",  "topright"), 
+  leg_title = c("Population", "Administrative\nStatus"),
+  val_order = c("Prefecture", "Sub-prefecture", "Simple municipality"))
+```
 
+Other functions such as `mf_arrow`, `mf_scale`,and `mf_credits` can be used to alter the position of the map aesthetics.
 
+### Adding graticule on the map
 
+It may sometimes, not always, be necessary to add graticule on the map. That can be achieved with the following:
 
+```{r graticule}
+#mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+#mf_theme(mar = c(2, 2, 1.2, 0)+5)
+plot(st_geometry(mtq), border = NA, col = NA, graticule = st_crs(4326),
+     axes = TRUE, bg = mf_theme(mar = c(2, 2, 1.2, 0)+2)$bg,
+     lon = seq(-62, -60, by = 0.2), lat = seq(14, 15, by = 0.2))
+mf_layout(title = 'Martinique',
+          credits = paste0('Sources: IGN, 2018\n',
+          'mapsf ',
+          packageVersion('mapsf')))
+mf_shadow(mtq, col = 'gray', cex = 1, add = TRUE)
+mf_map(mtq, add = TRUE)
+
+```

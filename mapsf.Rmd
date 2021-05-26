@@ -66,8 +66,63 @@ mf_layout(title = 'Martinique',
           'mapsf ',
           packageVersion('mapsf')))
 ```
+Now we want to show a map of the population since POP is a field in the mtq data per region. We want to represent this as graduated symbol so that we have larger symbols for those regions with higher population values.
 
+```{r pop_map}
+mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(mtq, col = 'magenta', cex = 2, add = TRUE)
+mf_layout(title = 'Martinique',
+          credits = paste0('Sources: IGN, 2018\n',
+          'mapsf ',
+          packageVersion('mapsf')))
+mf_map(mtq, add = TRUE)
+mf_map(x = mtq, var = 'POP', type = 'prop', inches = 0.25, 
+       col = 'purple', leg_pos = 'bottomleft2', leg_title = 'Total population'
+)
+```
 
+Awesome so far. Here we make a step to the choropleth maps. Since regions are polygons, we can calculate area of each polygon using the st_area() function. Then we can use the population column and the created area values to create a new column called population density. This is given by dividing the population by area.
+
+```{r choropleth}
+mtq$POPDENS <- 1e6 * mtq$POP / st_area(mtq)
+mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(mtq, col = 'magenta', cex = 2, add = TRUE)
+mf_layout(title = 'Martinique',
+          credits = paste0('Sources: IGN, 2018\n',
+          'mapsf ',
+          packageVersion('mapsf')))
+mf_map(x = mtq, var = "POPDENS", type = "choro", breaks = "geom", nbreaks = 5,
+  col = "Mint", border = "white", lwd = 0.5, leg_pos = "topright", 
+  leg_title = "Population Density\n(people per km2)", add = TRUE
+)
+```
+We can also plot a map which is showing the character variable in the fields such as the STATUS field. Then we color the map based on individual categories, so all regions having same category will have the same color.
+
+```{r typology}
+mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(mtq, col = 'gray', cex = 2, add = TRUE)
+mf_layout(title = 'Martinique',
+          credits = paste0('Sources: IGN, 2018\n',
+          'mapsf ',
+          packageVersion('mapsf')))
+mf_map(x = mtq, var = "STATUS", type = "typo", pal = c("purple", "magenta", "cyan"), lwd = .5, val_order = c("Prefecture", "Sub-prefecture", 
+"Simple municipality"), leg_pos = "topright", leg_title = "", add = TRUE)
+```
+
+I may need to label some of the regions. This is achievable by using the mf_label() function as follows:
+
+```{r labeling}
+mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(mtq, col = 'gray', cex = 2, add = TRUE)
+mf_layout(title = 'Martinique',
+          credits = paste0('Sources: IGN, 2018\n',
+          'mapsf ',
+          packageVersion('mapsf')))
+mf_map(x = mtq, var = "STATUS", type = "typo", pal = c("purple", "magenta", "cyan"), lwd = .5, val_order = c("Prefecture", "Sub-prefecture", 
+"Simple municipality"), leg_pos = "topright", leg_title = "", add = TRUE)
+mf_label(x = mtq[mtq$STATUS != "Simple municipality", ], var = "LIBGEO", 
+         cex = 0.9, halo = TRUE, r = 0.15)
+```
 
 
 

@@ -1,8 +1,10 @@
 ---
 title: "<center>Map building using `mapsf` package in `R`</center>"
 author: "<center>Wyclife Agumba Oluoch</center>"
-date: <center>`r Sys.time()`</center>
-output: html_document
+date: "<center>`r Sys.time()`</center>"
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}

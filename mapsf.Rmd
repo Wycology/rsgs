@@ -2,15 +2,13 @@
 title: "<center>Map building using `mapsf` package in `R`</center>"
 author: "<center>Wyclife Agumba Oluoch</center>"
 date: "<center>`r Sys.time()`</center>"
-output:
-  pdf_document: default
-  html_document: default
+output: html_notebook
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-## Background
+## Background to the project
 
 With the steady growth in spatial analysis capabilities in `R`, there has been a number of attempts to make optimized visualizations of outputs comparable or better than traditional GUI based interfaces such as [QGIS](https://qgis.org/en/site/).In this process, several packages have been developed including tmap, mapvis, geovis among others. The list has not left our ggplot2 which is the bread-and-butter of visualization in R. When `sf` package was built for handling spatial data as regular dataframes in R, the spatial community appreciated the analysis capabilities but were not fullt satisfied with visualization of the outputs. This is the niche that has been filled by the development of `mapsf` package. In this tutorial, we are going to see how to use `mapsf` to visualize several vector map types and raster as well. 
 

@@ -58,7 +58,7 @@ There is a beautiful shadow feature in `mapsf` which can be plotted just before 
 mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
 mf_shadow(mtq, col = 'purple', cex = 2, add = TRUE) # Now we have shadow on the layout added
 ```
-The next step now is to plot the map itself. 
+The next step now is to plot the map itself on top of its shadow. 
 
 ```{r the_map}
 mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')

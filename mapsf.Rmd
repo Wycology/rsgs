@@ -78,7 +78,7 @@ mf_layout(title = 'Martinique',
           'mapsf ',
           packageVersion('mapsf')))
 ```
-# Adding one of the fields/attributes to the map
+# Adding one of the fields/attributes to the map s proportional
 
 Now we want to show a map of the population since POP is a field in the mtq data per region. We want to represent this as graduated symbol so that we have larger symbols for those regions with higher population values.
 
@@ -95,6 +95,8 @@ mf_map(x = mtq, var = 'POP', type = 'prop', inches = 0.25,
 )
 ```
 
+# Adding choropleth map using one attribute
+
 Awesome so far. Here we make a step to the choropleth maps. Since regions are polygons, we can calculate area of each polygon using the st_area() function. Then we can use the population column and the created area values to create a new column called population density. This is given by dividing the population by area.
 
 ```{r choropleth}
@@ -110,6 +112,7 @@ mf_map(x = mtq, var = "POPDENS", type = "choro", breaks = "geom", nbreaks = 5,
   leg_title = "Population Density\n(people per km2)", add = TRUE
 )
 ```
+# Mapping categorical variable on the map
 We can also plot a map which is showing the character variable in the fields such as the STATUS field. Then we color the map based on individual categories, so all regions having same category will have the same color.
 
 ```{r typology}

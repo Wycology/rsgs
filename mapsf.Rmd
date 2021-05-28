@@ -68,6 +68,7 @@ mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
 mf_shadow(mtq, col = 'magenta', cex = 2, add = TRUE) 
 mf_map(mtq, type = 'base', add = TRUE) # Awesome
 ```
+# The map layout development
 In as much as the map layout looks fine, it is still way below what `mapsf` can do. Let us use the `mf_layout()` function to create a layout more suitable for map creation. The layout will capture north arrow, scale, Source, author, package and version used, and title of the map.
 
 ```{r layout_complete}
@@ -77,6 +78,8 @@ mf_layout(title = 'Martinique',
           'mapsf ',
           packageVersion('mapsf')))
 ```
+# Adding one of the fields/attributes to the map
+
 Now we want to show a map of the population since POP is a field in the mtq data per region. We want to represent this as graduated symbol so that we have larger symbols for those regions with higher population values.
 
 ```{r pop_map}

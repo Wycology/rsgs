@@ -52,20 +52,23 @@ head(mtq) # multipolygon, WGS84 projection zone 20Nm 6 features and 7 fields plu
 
 # Creating map shadow 
 
-There is a beautiful shadow feature in `mapsf` which can be plotted just before placing the actual map. Actually, it is the shadow of the actual map. We can go ahead and plot the shadow using mf_shadow as follows:
+There is a beautiful shadow feature in `mapsf` which can be plotted just before placing the actual map. Actually, it is the shadow of the actual map. We can go ahead and plot the shadow using `mf_shadow()` as follows:
 
 ```{r shadow}
 mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
 mf_shadow(mtq, col = 'purple', cex = 2, add = TRUE) # Now we have shadow on the layout added
 ```
-The next step now is to plot the map itself on top of its shadow. 
+
+### Adding map on the shadow
+
+The next step now is to plot the map itself on top of its shadow. Sounds like an overlay on top of the same layer. However, the shadow will be slightly offset diagonally to depict shadowy plot. 
 
 ```{r the_map}
 mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
 mf_shadow(mtq, col = 'magenta', cex = 2, add = TRUE) 
 mf_map(mtq, type = 'base', add = TRUE) # Awesome
 ```
-In as much as the map layout looks fine, it is still way below what mapsf can do. Let us use the mf_layout() function to create a layout more suitable for map creation. The layout will capture north arrow, scale, Source, author, package and version used, and title of the map.
+In as much as the map layout looks fine, it is still way below what `mapsf` can do. Let us use the `mf_layout()` function to create a layout more suitable for map creation. The layout will capture north arrow, scale, Source, author, package and version used, and title of the map.
 
 ```{r layout_complete}
 mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')

@@ -144,7 +144,7 @@ mf_label(x = mtq[mtq$STATUS != "Simple municipality", ], var = "LIBGEO",
 ```
 # Combining choropleth with proportional map
 
-Both the proportional map can be combined with choropleth coloraion. The size of circles and the color density represent different variables. This is achievable with the following code:
+Both the proportional map can be combined with choropleth coloration. The size of circles and the color density represent different variables. This is achievable with the following code:
 
 ```{r propo_choropleth}
 mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
@@ -159,8 +159,9 @@ mf_map(x = mtq, var = c("POP", "MED"), type = "prop_choro", border = "grey50",
   pal = "Greens", leg_val_rnd = c(0, -2), leg_frame = c(TRUE, TRUE)
 )
 ```
+# Making proportional map and typology in one
 
-Proportional map and typology in one map:
+Proportional map and typology can be mapped on the same map layout using the following code:
 
 ```{r propo_typo}
 mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')

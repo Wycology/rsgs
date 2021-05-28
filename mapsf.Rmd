@@ -113,6 +113,7 @@ mf_map(x = mtq, var = "POPDENS", type = "choro", breaks = "geom", nbreaks = 5,
 )
 ```
 # Mapping categorical variable on the map
+
 We can also plot a map which is showing the character variable in the fields such as the STATUS field. Then we color the map based on individual categories, so all regions having same category will have the same color.
 
 ```{r typology}
@@ -125,6 +126,7 @@ mf_layout(title = 'Martinique',
 mf_map(x = mtq, var = "STATUS", type = "typo", pal = c("purple", "magenta", "cyan"), lwd = .5, val_order = c("Prefecture", "Sub-prefecture", 
 "Simple municipality"), leg_pos = "topright", leg_title = "", add = TRUE)
 ```
+# Labeling some regions of the map
 
 I may need to label some of the regions. This is achievable by using the mf_label() function as follows:
 
@@ -140,6 +142,8 @@ mf_map(x = mtq, var = "STATUS", type = "typo", pal = c("purple", "magenta", "cya
 mf_label(x = mtq[mtq$STATUS != "Simple municipality", ], var = "LIBGEO", 
          cex = 0.9, halo = TRUE, r = 0.15)
 ```
+# Combining choropleth with proportional map
+
 Both the proportional map can be combined with choropleth coloraion. The size of circles and the color density represent different variables. This is achievable with the following code:
 
 ```{r propo_choropleth}

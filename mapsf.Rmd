@@ -184,7 +184,7 @@ Other functions such as `mf_arrow`, `mf_scale`,and `mf_credits` can be used to a
 It may sometimes, not always, be necessary to add graticule on the map. That can be achieved with the following:
 
 ```{r graticule}
-#mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+# mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
 #mf_theme(mar = c(2, 2, 1.2, 0)+5)
 plot(st_geometry(mtq), border = NA, col = NA, graticule = st_crs(4326),
      axes = TRUE, bg = mf_theme(mar = c(2, 2, 1.2, 0)+2)$bg,

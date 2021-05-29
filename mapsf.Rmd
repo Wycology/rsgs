@@ -181,7 +181,7 @@ Other functions such as `mf_arrow`, `mf_scale`,and `mf_credits` can be used to a
 
 ### Adding graticule on the map
 
-It may sometimes, not always, be necessary to add graticule (longitudes and) on the map. That can be achieved with the following:
+It may sometimes, not always, be necessary to add graticule (longitudes and latitudes) on the map. That can be achieved with the following:
 
 ```{r graticule}
 # mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')

@@ -185,7 +185,7 @@ It may sometimes, not always, be necessary to add graticule (longitudes and lati
 
 ```{r graticule}
 # mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
-#mf_theme(mar = c(2, 2, 1.2, 0)+5)
+# mf_theme(mar = c(2, 2, 1.2, 0)+5)
 plot(st_geometry(mtq), border = NA, col = NA, graticule = st_crs(4326),
      axes = TRUE, bg = mf_theme(mar = c(2, 2, 1.2, 0)+2)$bg,
      lon = seq(-62, -60, by = 0.2), lat = seq(14, 15, by = 0.2))

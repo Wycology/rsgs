@@ -6,9 +6,13 @@ install_github('yonghah/esri2sf') # Downloading the package
 
 library(esri2sf) # Loading the installed library
 
+# Sourcing point data from a url
+
 url <- 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
 df <- esri2sf(url)
 plot(df)
+
+# Sourcing line data from a url
 
 url <- 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Florida_Annual_Average_Daily_Traffic/FeatureServer/0'
 df <- esri2sf(url, outFields = c('AADT', 'DFLG'))

@@ -4,7 +4,7 @@
 library(remotes) # For use in installing the package from github
 install_github('yonghah/esri2sf') # Downloading the package
 
-library(esri2sf)
+library(esri2sf) # Loading the installed library
 
 url <- 'https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0'
 df <- esri2sf(url)

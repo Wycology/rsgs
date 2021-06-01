@@ -1,6 +1,7 @@
 # Getting shapefile data from ARCGIS Server
 # Created by Wyclife Agumba Oluoch
-library(remotes)
+
+library(remotes) # For use in installing the package from github
 install_github('yonghah/esri2sf')
 
 library(esri2sf)

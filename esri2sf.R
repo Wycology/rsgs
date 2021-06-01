@@ -2,7 +2,7 @@
 # Created by Wyclife Agumba Oluoch
 
 library(remotes) # For use in installing the package from github
-install_github('yonghah/esri2sf')
+install_github('yonghah/esri2sf') # Downloading the package
 
 library(esri2sf)
 

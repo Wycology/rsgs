@@ -23,5 +23,4 @@ url <- 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics
 df <- esri2sf(url,
               where = "STATE_NAME = 'Michigan'",
               outFields = c('POP2000', 'pop2007', 'POP00_SQMI', 'POP07_SQMI'))
-
-plot(df)
+plot(df) # Good plot

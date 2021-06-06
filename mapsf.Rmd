@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ## Background of project
 
-With the steady growth being witnessed in spatial analysis with `R`, there have been attempts to improve map visualization comparable or better than traditional GUI based GIS such as [QGIS](https://qgis.org/en/site/).In this process, several packages have been developed including tmap, Mapdeck, sf among others. The list has not left out ggplot2 which is the bread-and-butter of visualization in R. When `sf` package was built for wrangling spatial data in a manner similar to regular data.frames in R, the spatial community appreciated the analysis capabilities but were not fully satisfied with visualization of the outputs. This is the niche that has been filled by the development of `mapsf` package. In this tutorial, we are going to see how to use `mapsf` to visualize several vector map types and raster data type. 
+With the steady growth being witnessed in spatial analysis with `R`, there have been attempts to improve map visualization comparable or better than traditional GUI based GIS platforms such as [QGIS](https://qgis.org/en/site/).In this process, several packages have been developed including tmap, Mapdeck, sf among others. The list has not left out ggplot2 which is the bread-and-butter of visualization in R. When `sf` package was built for wrangling spatial data in a manner similar to regular data.frames in R, the spatial community appreciated the analysis capabilities but were not fully satisfied with visualization of the outputs. This is the niche that has been filled by the development of `mapsf` package. In this tutorial, we are going to see how to use `mapsf` to visualize several vector map types and raster data type. 
 
 ## About `mapsf` and installation
 

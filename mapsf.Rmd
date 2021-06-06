@@ -2,9 +2,12 @@
 title: "<center>Map making using `mapsf` package in `R`</center>"
 author: "<center>Wyclife Agumba Oluoch</center>"
 date: "<center>`r Sys.time()`</center>"
-output: 
+output:
   html_notebook:
     toc: yes
+  html_document:
+    toc: yes
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}

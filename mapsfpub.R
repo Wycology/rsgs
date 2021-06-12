@@ -1,5 +1,7 @@
 library(mapsf) # Loading the package
-study_area <- mf_get_mtq()
+
+study_area <- mf_get_mtq() # Loading the sample data
+
 mf_init(study_area, expandBB = rep(0, 4), theme = 'candy')
 mf_shadow(study_area, col = 'purple', cex = 2, add = TRUE)
 mf_layout(title = 'Martinique',

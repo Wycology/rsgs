@@ -3,11 +3,8 @@ title: "<center>Map making using `mapsf` package in `R`</center>"
 author: "<center>Wyclife Agumba Oluoch</center>"
 date: "<center>`r Sys.time()`</center>"
 output:
-  html_notebook:
-    toc: yes
   html_document:
     toc: yes
-    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -15,16 +12,18 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ## Background of project
 
-With the steady growth being witnessed in spatial analysis with `R`, there have been attempts to improve map visualization comparable or better than traditional GUI based GIS platforms such as [QGIS](https://qgis.org/en/site/).In this process, several packages have been developed including tmap, Mapdeck, sf among others. The list has not left out ggplot2 which is the bread-and-butter of data visualization in R. When `sf` package was built for wrangling spatial data in a manner similar to regular data.frames in R, the spatial community appreciated the analysis capabilities but were not fully satisfied with visualization of the outputs. This is the niche that has been filled by the development of `mapsf` package. In this tutorial, we are going to see how to use `mapsf` to visualize several vector map types and raster data type. 
+With the steady growth in spatial analysis with `R`, there have been attempts to improve map visualization comparable or better than traditional GUI based GIS platforms such as [QGIS](https://qgis.org/en/site/).In this process, several packages have been developed including tmap, Mapdeck, sf among others. The list has not left out ggplot2 which is the bread-and-butter of data visualization in R. When `sf` package was built for wrangling spatial data in a manner similar to regular data.frames in R, the spatial community appreciated the analysis capabilities but were not fully satisfied with visualization of the outputs. This is the niche that has been filled by the development of `mapsf` package. In this tutorial, we are going to see how to use `mapsf` to visualize several vector map types and raster data type. 
 
 ## About `mapsf` and installation
 
-`mapsf` is a package which is enabling creating maps of simple features in R. For more information on the package, [see](https://github.com/riatelab/mapsf).
+`mapsf` is a package for easier creation of maps of simple features in R. For more information on the package, [see](https://github.com/riatelab/mapsf).
 
 You can install and load the package with the following code:
 
 ```{r loading}
-# install.packages('mapsf')
+# install.packages('mapsf') or the development version
+# remotes::install_github("riatelab/mapsf")
+
 library(mapsf)
 ```
 
@@ -32,85 +31,100 @@ Since it is mapping simple features, loading the library will show _Loading requ
 
 ## Loading data to map with `mapsf`
 
-The package is coming with an inbuilt data-set for Martinique island in France. We can access the data-set and save it to an object called mtq using the following simple code:
+The package is coming with an inbuilt data-set for Martinique island in France. We can access the data-set and save it to an object called study_area using the following simple code:
 
 ```{r loading_data}
-mtq <- mf_get_mtq() # Most of the functions in mapsf package start with mf_
+study_area <- mf_get_mtq() # Most of the functions in mapsf package start with mf_
 ```
 
 ## Initializing map development
 
-We can then go ahead and initialize the mapping process. You can think of this as designing the layout pane on which to display the map in [QGIS](https://qgis.org/en/site/), for example. In this case, we use `mf_init()` function as follows:
+We will now initialize the mapping process. We can think of this as designing the layout pane on which to display the map in [QGIS](https://qgis.org/en/site/), for example. In this case, we use `mf_init()` function as follows:
 
-```{r layout}
-mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk') # This is the layout to map on
+```{r initialize}
+mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk') # This is the layout to throw map onto
 ```
 ## Previewing the data to map
 
-Before doing the mapping itself, it is important to preview the dataset so that one understands the available attributes (fields) from which mapping elements can be drawn. We can achieve that by using the `head()` function just like in the case of normal data.frames in `R`.
+Before doing the mapping itself, it is important to preview the data-set so that we understand the available attributes (fields) that can be mapped. We can achieve that by using the `head()` function just like in the case of normal data.frames in `R`.
 
-```{r mtq_object}
-head(mtq) # multipolygon, WGS84 projection zone 20Nm 6 features and 7 fields plus bounding box. geom holds the coordinates and not regarded as a field in the 7.
+```{r study_area_object}
+head(study_area) # multipolygon, WGS84 projection zone 20Nm 6 features and 7 fields plus bounding box. geom holds the coordinates and not regarded as a field in the 7.
 ```
+
+We can as well go ahead and get the column names plus data types of all the attributes in the sf object.
+
+```{r attributes}
+dplyr::glimpse(study_area)
+```
+
+In this case, one must be understanding the data fully to make sense of what the abbreviated column names mean for example POP, MED, CHOM, ACT. However, the geom column, that is sometimes called geometry, is a unique attribute which stores a list of all the coordinates of the features in the data. When dropped, we end up with a normal data.frame object in `R`.
 
 # Creating map shadow 
 
-There is a beautiful shadow feature in `mapsf` which can be plotted just before placing the actual map. Actually, it is the shadow of the actual map. We can go ahead and plot the shadow using `mf_shadow()` as follows:
+There is a shadow feature in `mapsf` which can be plotted just before placing the actual map on top. Actually, it is the shadow of the actual map. We can go ahead and plot the shadow using `mf_shadow()` as follows:
 
 ```{r shadow}
-mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
-mf_shadow(mtq, col = 'purple', cex = 2, add = TRUE) # Now we have shadow on the layout added
+mf_init(study_area, 
+        expandBB = rep(0, 4), 
+        theme = 'jsk')
+mf_shadow(study_area, 
+          col = 'purple', 
+          cex = 2, 
+          add = TRUE) # Now we have shadow on the layout added
 ```
 
 ### Adding map on the shadow
 
-The next step now is to plot the map itself on top of its shadow. Sounds like an overlay on top of the same layer. However, the shadow will be slightly offset diagonally to depict shadowy plot. 
+The next step now is to plot the map itself on top of its shadow. Sounds like an overlay on top of the same layer. However, the shadow will be slightly offset diagonally to depict 'shadowy' plot. 
 
 ```{r the_map}
-mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
-mf_shadow(mtq, col = 'magenta', cex = 2, add = TRUE) 
-mf_map(mtq, type = 'base', add = TRUE) # Awesome
+mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(study_area, col = 'magenta', cex = 2, add = TRUE) 
+mf_map(study_area, type = 'base', add = TRUE) # Awesome
 ```
+
 # The map layout development
-In as much as the map layout looks fine, it is still way below what `mapsf` can do. Let us use the `mf_layout()` function to create a layout more suitable for map creation. The layout will capture north arrow, scale, Source, author, package and version used, and title of the map.
+
+In as much as the map layout looks fine, it is still way below what we can achieve with `mapsf`. Let us use the `mf_layout()` function to create a layout more suitable for map creation. The layout will capture north arrow, scale, Source, author, package and version used, and title of the map.
 
 ```{r layout_complete}
-mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk')
 mf_layout(title = 'Martinique',
           credits = paste0('Sources: IGN, 2018\n',
           'mapsf ',
           packageVersion('mapsf')))
 ```
-# Adding one of the fields/attributes to the map s proportional
+# Adding one of the fields/attributes to the map using proportional circles
 
-Now we want to show a map of the population since POP is a field in the mtq data per region. We want to represent this as graduated symbol so that we have larger symbols for those regions with higher population values.
+Now we want to show a map of the population since POP is a field in the study_area data per region. We want to represent this as graduated symbol so that we have larger symbols for those regions with higher population values.
 
 ```{r pop_map}
-mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
-mf_shadow(mtq, col = 'magenta', cex = 2, add = TRUE)
+mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(study_area, col = 'magenta', cex = 2, add = TRUE)
 mf_layout(title = 'Martinique',
           credits = paste0('Sources: IGN, 2018\n',
           'mapsf ',
           packageVersion('mapsf')))
-mf_map(mtq, add = TRUE)
-mf_map(x = mtq, var = 'POP', type = 'prop', inches = 0.25, 
+mf_map(study_area, add = TRUE)
+mf_map(x = study_area, var = 'POP', type = 'prop', inches = 0.25, 
        col = 'purple', leg_pos = 'bottomleft2', leg_title = 'Total population'
 )
 ```
 
 # Adding choropleth map using one attribute
 
-Awesome so far. Here we make a step to the choropleth maps. Since regions are polygons, we can calculate area of each polygon using the st_area() function. Then we can use the population column and the created area values to create a new column called population density. This is given by dividing the population by area.
+Awesome so far. Here we make a step to the choropleth maps. Since regions are polygons, we can calculate area of each polygon using the st_area() function from `sf` package. Then we can use the population column and the created area values to create a new column called population density. This is given by dividing the population by area.
 
 ```{r choropleth}
-mtq$POPDENS <- 1e6 * mtq$POP / st_area(mtq)
-mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
-mf_shadow(mtq, col = 'magenta', cex = 2, add = TRUE)
+study_area$POPDENS <- 1e6 * study_area$POP / st_area(study_area)
+mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(study_area, col = 'magenta', cex = 2, add = TRUE)
 mf_layout(title = 'Martinique',
           credits = paste0('Sources: IGN, 2018\n',
           'mapsf ',
           packageVersion('mapsf')))
-mf_map(x = mtq, var = "POPDENS", type = "choro", breaks = "geom", nbreaks = 5,
+mf_map(x = study_area, var = "POPDENS", type = "choro", breaks = "geom", nbreaks = 5,
   col = "Mint", border = "white", lwd = 0.5, leg_pos = "topright", 
   leg_title = "Population Density\n(people per km2)", add = TRUE
 )
@@ -120,29 +134,29 @@ mf_map(x = mtq, var = "POPDENS", type = "choro", breaks = "geom", nbreaks = 5,
 We can also plot a map which is showing the character variable in the fields such as the STATUS field. Then we color the map based on individual categories, so all regions having same category will have the same color.
 
 ```{r typology}
-mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
-mf_shadow(mtq, col = 'gray', cex = 2, add = TRUE)
+mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(study_area, col = 'gray', cex = 2, add = TRUE)
 mf_layout(title = 'Martinique',
           credits = paste0('Sources: IGN, 2018\n',
           'mapsf ',
           packageVersion('mapsf')))
-mf_map(x = mtq, var = "STATUS", type = "typo", pal = c("purple", "magenta", "cyan"), lwd = .5, val_order = c("Prefecture", "Sub-prefecture", 
+mf_map(x = study_area, var = "STATUS", type = "typo", pal = c("purple", "magenta", "cyan"), lwd = .5, val_order = c("Prefecture", "Sub-prefecture", 
 "Simple municipality"), leg_pos = "topright", leg_title = "", add = TRUE)
 ```
 # Labeling some regions of the map
 
-I may need to label some of the regions. This is achievable by using the mf_label() function as follows:
+I may need to label some of the regions. This is achievable by using the mf_label() function from `mapsf` package as follows:
 
 ```{r labeling}
-mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
-mf_shadow(mtq, col = 'gray', cex = 2, add = TRUE)
+mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(study_area, col = 'gray', cex = 2, add = TRUE)
 mf_layout(title = 'Martinique',
           credits = paste0('Sources: IGN, 2018\n',
           'mapsf ',
           packageVersion('mapsf')))
-mf_map(x = mtq, var = "STATUS", type = "typo", pal = c("purple", "magenta", "cyan"), lwd = .5, val_order = c("Prefecture", "Sub-prefecture", 
+mf_map(x = study_area, var = "STATUS", type = "typo", pal = c("purple", "magenta", "cyan"), lwd = .5, val_order = c("Prefecture", "Sub-prefecture", 
 "Simple municipality"), leg_pos = "topright", leg_title = "", add = TRUE)
-mf_label(x = mtq[mtq$STATUS != "Simple municipality", ], var = "LIBGEO", 
+mf_label(x = study_area[study_area$STATUS != "Simple municipality", ], var = "LIBGEO", 
          cex = 0.9, halo = TRUE, r = 0.15)
 ```
 # Combining choropleth with proportional map
@@ -150,14 +164,14 @@ mf_label(x = mtq[mtq$STATUS != "Simple municipality", ], var = "LIBGEO",
 Both the proportional map can be combined with choropleth coloration. The size of circles and the color density represent different variables. This is achievable with the following code:
 
 ```{r propo_choropleth}
-mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
-mf_shadow(mtq, col = 'gray', cex = 2, add = TRUE)
+mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(study_area, col = 'gray', cex = 2, add = TRUE)
 mf_layout(title = 'Martinique',
           credits = paste0('Sources: IGN, 2018\n',
           'mapsf ',
           packageVersion('mapsf')))
-mf_map(mtq, add = TRUE)
-mf_map(x = mtq, var = c("POP", "MED"), type = "prop_choro", border = "grey50",
+mf_map(study_area, add = TRUE)
+mf_map(x = study_area, var = c("POP", "MED"), type = "prop_choro", border = "grey50",
   lwd = 1, leg_pos = c("topright", "right"), leg_title = c("Population","Median\nIncome\n(in euros)"), breaks = "equal", nbreaks = 4, 
   pal = "Greens", leg_val_rnd = c(0, -2), leg_frame = c(TRUE, TRUE)
 )
@@ -167,14 +181,14 @@ mf_map(x = mtq, var = c("POP", "MED"), type = "prop_choro", border = "grey50",
 Proportional map and typology can be mapped on the same map layout using the following code:
 
 ```{r propo_typo}
-mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
-mf_shadow(mtq, col = 'gray', cex = 2, add = TRUE)
+mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(study_area, col = 'gray', cex = 2, add = TRUE)
 mf_layout(title = 'Martinique',
           credits = paste0('Sources: IGN, 2018\n',
           'mapsf ',
           packageVersion('mapsf')))
-mf_map(mtq, add = TRUE)
-mf_map(x = mtq, var = c("POP","STATUS"), type = "prop_typo", symbol = "square",
+mf_map(study_area, add = TRUE)
+mf_map(x = study_area, var = c("POP","STATUS"), type = "prop_typo", symbol = "square",
   border = "white", lwd = .5, leg_pos = c("right",  "topright"), 
   leg_title = c("Population", "Administrative\nStatus"),
   val_order = c("Prefecture", "Sub-prefecture", "Simple municipality"))
@@ -187,16 +201,88 @@ Other functions such as `mf_arrow`, `mf_scale`,and `mf_credits` can be used to a
 It may sometimes, not always, be necessary to add graticule (longitudes and latitudes) on the map. That can be achieved simply with the following:
 
 ```{r graticule}
-# mf_init(mtq, expandBB = rep(0, 4), theme = 'jsk')
+# mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk')
 # mf_theme(mar = c(2, 2, 1.2, 0)+5)
-plot(st_geometry(mtq), border = NA, col = NA, graticule = st_crs(4326),
+plot(st_geometry(study_area), border = NA, col = NA, graticule = st_crs(4326),
      axes = TRUE, bg = mf_theme(mar = c(2, 2, 1.2, 0)+2)$bg,
      lon = seq(-62, -60, by = 0.2), lat = seq(14, 15, by = 0.2))
 mf_layout(title = 'Martinique',
           credits = paste0('Sources: IGN, 2018\n',
           'mapsf ',
           packageVersion('mapsf')))
-mf_shadow(mtq, col = 'gray', cex = 1, add = TRUE)
-mf_map(mtq, add = TRUE)
+mf_shadow(study_area, col = 'gray', cex = 1, add = TRUE)
+mf_map(study_area, add = TRUE)
 
 ```
+
+# Adding inset map
+
+```{r isnset}
+mf_init(study_area, expandBB = rep(0, 4), theme = 'jsk')
+mf_shadow(study_area, col = 'gray', cex = 2, add = TRUE)
+mf_layout(title = 'Martinique',
+          credits = paste0('T. Giraud\nSources: INSEE & IGN, 2018',
+          'mapsf ',
+          packageVersion('mapsf')))
+mf_map(x = study_area, var = "POPDENS", type = "choro", breaks = "geom", nbreaks = 5,
+  col = "Mint", border = "white", lwd = 0.5, leg_pos = "left", 
+  leg_title = "Population Density\n(people per km2)", add = TRUE)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(study_area, col = "red")
+mf_inset_off()
+```
+
+# Exporting a map out to png for publication
+
+```{r export}
+# Export a map figure with a theme and extra margins 
+mf_export(x = study_area, filename = "mtq.png", width = 600, 
+          theme = "dark", expandBB = c(0,0,0,.3)) 
+# Plot a shadow
+mf_shadow(study_area, col = "grey10", add = TRUE)
+# Plot a choropleth map
+mf_map(x = study_area, var = "MED", type = "choro",
+       pal = "Dark Mint", 
+       breaks = "quantile", 
+       nbreaks = 6, 
+       leg_title = "Median Income\n(euros)", 
+       leg_val_rnd = -2, 
+       add = TRUE)
+# Start an inset map
+mf_inset_on(x = "worldmap", pos = "right")
+# Plot the position of the sample dataset on a worlmap
+mf_worldmap(study_area, col = "red")
+# Close the inset
+mf_inset_off()
+# Plot a title
+mf_title("Wealth in Martinique, 2015")
+# Plot credits
+mf_credits("T. Giraud\nSources: INSEE & IGN, 2018")
+# Plot a scale bar
+mf_scale(size = 5)
+# Plot a north arrow
+mf_arrow('topleft')
+dev.off()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

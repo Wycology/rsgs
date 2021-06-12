@@ -1,0 +1,23 @@
+library(mapsf) # Loading the package
+study_area <- mf_get_mtq()
+mf_init(study_area, expandBB = rep(0, 4), theme = 'candy')
+mf_shadow(study_area, col = 'purple', cex = 2, add = TRUE)
+mf_layout(title = 'Martinique',
+          credits = paste0('Sources: IGN, 2018',
+                           'mapsf ',
+                           packageVersion('mapsf')),
+          credits = F,
+          scale = F)
+mf_map(study_area, add = TRUE)
+mf_map(x = study_area, var = c("POP", "MED"), type = "prop_choro", border = "grey50",
+       lwd = 1, leg_pos = c("topright", "right"), leg_title = c("Population","Median\nIncome\n(in euros)"), 
+       breaks = "equal", nbreaks = 4, pal = "Reds", leg_val_rnd = c(0, -2), 
+       leg_frame = c(TRUE, TRUE), leg_val_cex = c(1, 1.2)
+)
+mf_scale(cex = 1.5)
+mf_credits(paste0('Sources: IGN, 2018, Package: ', 'mapsf ', 'Version: ', packageVersion('mapsf')), 
+           cex = 1.5, bg = 'magenta')
+mf_title('Study Area: Martinique', cex = 2)
+mf_inset_on(x = 'worldmap', pos = 'left')
+mf_worldmap(study_area, col = "red")
+mf_inset_off()

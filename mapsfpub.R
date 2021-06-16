@@ -17,6 +17,6 @@ mf_credits(paste0('Sources: IGN, 2018, Package: ', 'mapsf ', 'Version: ', packag
            cex = 1.5, bg = 'magenta')
 mf_title('Study Area: Martinique', cex = 2)
 mf_arrow()
-mf_inset_on(x = 'worldmap', pos = 'left')
+mf_inset_on(x = 'worldmap', pos = 'left') # Locating the inset
 mf_worldmap(study_area, col = "red") # Adding the inset
 mf_inset_off() # Terminating the inset

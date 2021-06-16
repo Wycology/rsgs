@@ -16,7 +16,7 @@ mf_scale(cex = 1.5)
 mf_credits(paste0('Sources: IGN, 2018, Package: ', 'mapsf ', 'Version: ', packageVersion('mapsf')), 
            cex = 1.5, bg = 'magenta')
 mf_title('Study Area: Martinique', cex = 2)
-mf_arrow()
+mf_arrow() # Adding the north arrow
 mf_inset_on(x = 'worldmap', pos = 'left') # Locating the inset
 mf_worldmap(study_area, col = "red") # Adding the inset
 mf_inset_off() # Terminating the inset

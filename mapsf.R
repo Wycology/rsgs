@@ -1,6 +1,6 @@
 # Mapping with mapsf ----
 # Created by Agumba Oluoch
-# Last edition 
+# Last edition 16th June 2021
 
 library(mapsf) # for mapping sf objects
 

@@ -1,6 +1,6 @@
 # Mapping with mapsf ----
 # Created by Agumba Oluoch
-# 
+# Last edition 
 
 library(mapsf) # for mapping sf objects
 

@@ -6,7 +6,7 @@
 #################################################################################
 
 # Loading the libraries
-library(raster)
+library(raster) # For creating the raster files
 library(stars)
 library(sf)
 

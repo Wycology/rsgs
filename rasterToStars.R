@@ -5,6 +5,7 @@
 # Last edited on 17th June 2021                                                 #
 #################################################################################
 
+# Loading the libraries
 library(raster)
 library(stars)
 library(sf)

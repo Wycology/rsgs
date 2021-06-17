@@ -20,12 +20,13 @@ r[] <- round(rnorm(n = ncell(r)), 2)
 
 plot(r) # visualize the raster
 
-# Now convert the raster object to stars object
+# Convert the raster object to stars object
 s <- st_as_stars(r)
 
 plot(s) # Visualize the stars object
 
 # Add pixel value texts on the plot
+
 plot(s, text_values = TRUE, 
      col = terrain.colors(10), 
      breaks = "equal")

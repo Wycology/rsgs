@@ -14,8 +14,10 @@ library(sf)     # For creating sf objects
 
 r <- raster(ncols = 20, nrows = 20)
 
-# Fill the raster with radom values rounded to 2 decimal places
+# Fill the raster with random values rounded to 2 decimal places
+
 r[] <- round(rnorm(n = ncell(r)), 2)
+
 plot(r) # visualize the raster
 
 # Now convert the raster object to stars object

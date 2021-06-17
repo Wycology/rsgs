@@ -1,5 +1,9 @@
-# In this code, I am going to demonstrate how to convert raster to stars object
-# Loading the libraries
+#################################################################################
+# In this code, I am going to demonstrate how to convert raster to stars object #
+# Created by Wyclife Agumba Oluoch                                              #
+# wyclifeoluoch@gmail.com                                                       #
+# Last edited on 17th June 2021                                                 #
+#################################################################################
 
 library(raster)
 library(stars)

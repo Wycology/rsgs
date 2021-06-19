@@ -11,7 +11,7 @@ library(raster) # For the raster files
 library(stars)  # For stars files 
 library(sf)     # For sf objects
 
-# First is to create a raster object using the raster function
+# Create a raster object using the raster function
 
 r <- raster(ncols = 20, nrows = 20)
 

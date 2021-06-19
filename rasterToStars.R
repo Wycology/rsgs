@@ -13,7 +13,7 @@ library(sf)     # For sf objects
 
 # Create a raster object using the raster function
 
-r <- raster(ncols = 20, nrows = 20)
+r <- raster(ncols = 20, nrows = 20) #
 
 # Fill the raster with random values rounded to 2 decimal places
 

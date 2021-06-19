@@ -17,7 +17,7 @@ r <- raster(ncols = 20, nrows = 20) # 20 by 20 raster
 
 # Fill the raster with random values rounded to 2 decimal places
 
-r[] <- round(rnorm(n = ncell(r)), 2)
+r[] <- round(rnorm(n = ncell(r)), 2) # Filling the values in the raster
 
 plot(r) # visualize the raster
 

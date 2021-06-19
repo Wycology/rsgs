@@ -8,7 +8,7 @@
 # Loading the libraries
 
 library(raster) # For the raster files
-library(stars)  # For creating the stars files 
+library(stars)  # For stars files 
 library(sf)     # For creating sf objects
 
 # First is to create a raster object using the raster function

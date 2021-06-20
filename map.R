@@ -1,7 +1,7 @@
 # Creating minimum temperature map for Kenyan counties
 library(raster) # For getting shapefile and raster data online GADM and worldclim
 library(mapsf)  # For plotting the simple feature maps
-library(sf)
+library(sf)     # For gettinf functions for transforming coordinates
 library(tidyverse)
 
 kenya <- getData('GADM', country = 'KEN', level = 1)

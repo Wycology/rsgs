@@ -1,6 +1,5 @@
 #
 library(raster)
-library(rnaturalearth)
 library(mapsf)
 library(sf)
 library(tidyverse)

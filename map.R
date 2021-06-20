@@ -2,25 +2,19 @@
 library(raster) # For getting shapefile and raster data online GADM and worldclim
 library(mapsf)  # For plotting the simple feature maps
 library(sf)     # For gettinf functions for transforming coordinates
-library(tidyverse)
+library(tidyverse) # Data wrangling package
 
 kenya <- getData('GADM', country = 'KEN', level = 1)
-plot(kenya)
-class(kenya)
-
 kenyasf <- st_as_sf(kenya)
 
 
 clim <- getData('worldclim', var = 'tmin', res = 10)
-
 crop <- crop(clim, kenyasf)
 mask <- mask(crop, kenyasf)  
 
 extract <- raster::extract(mask[[c(12,5)]], kenyasf, fun = mean)
-extract
 df <- as.data.frame(extract)
-head(df)  
-  
+
 kenyasf_mutate <- kenyasf |> mutate(tmin12 = df$tmin12) |> 
   mutate(Tmin5 = round(df$tmin5/10)) |> 
   mutate(Tmin12 = round(tmin12/10)) |> 

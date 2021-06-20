@@ -1,4 +1,4 @@
-library(dismo)
+#
 library(raster)
 library(rnaturalearth)
 library(mapsf)

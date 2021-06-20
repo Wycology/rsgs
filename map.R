@@ -1,4 +1,4 @@
-#
+# Creating minimum temperature map for Kenyan counties
 library(raster)
 library(mapsf)
 library(sf)

@@ -1,5 +1,5 @@
 # Creating minimum temperature map for Kenyan counties
-library(raster)
+library(raster) # For getting shapefile and raster data online GADM and worldclim
 library(mapsf)
 library(sf)
 library(tidyverse)

@@ -37,14 +37,9 @@ mf_layout(title = 'Kenya Counties December Min. Temp',
           credits = paste0("Data source: GADM and worldclim ", 
                            'mapsf ', packageVersion('mapsf')))  
 
-
 mf_init(kenyasf_mutate, theme = 'iceberg')
 mf_shadow(kenyasf_mutate, col = 'purple', cex = 2)
 mf_map(kenyasf_mutate, add = TRUE)
 mf_map(kenyasf_mutate, var = 'Tmin5', type = 'choro', pal = 'Greens', add = TRUE)
 mf_layout(title = 'Kenya Counties Temperature',
           credits = paste0("Data source: GADM and worldclim ", 
-                           'mapsf ', packageVersion('mapsf')))  
-
-
-

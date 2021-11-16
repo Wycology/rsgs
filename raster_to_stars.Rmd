@@ -72,7 +72,7 @@ plot(s)
 
 ```{r}
 plot(s, text_values = TRUE, 
-     col = terrain.colors(10), 
+     col = terrain.colors(10, alpha = 1), 
      breaks = "equal")
 ```
 

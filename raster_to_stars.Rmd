@@ -53,19 +53,19 @@ r[] <- round(rnorm(n = ncell(r)), 2)
 # Plot raster
 
 ```{r}
-
+plot(r)
 ```
 
 # Convert raster to stars
 
 ```{r}
-
+s <- st_as_stars(r)
 ```
 
 # Plot stars
 
 ```{r}
-
+plot(s)
 ```
 
 # Show pixel values

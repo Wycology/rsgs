@@ -2,14 +2,38 @@
 title: "<center>Map making using `mapsf` package in `R`</center>"
 author: "<center>Wyclife Agumba Oluoch</center>"
 date: "<center>`r Sys.time()`</center>"
+bibliography:
+  - bib/packages.bib
+nocite: '@*'
 output:
   html_document:
-    toc: yes
+    toc: true
+    toc_depth: 2
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+```{r libs, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+packages <- c("base",
+              'knitr',
+              'rmarkdown',
+              'mapsf',
+              'dplyr')
+installed_packages <- packages %in% rownames(installed.packages())
+if(any(installed_packages == FALSE)){
+  install.packages(packages[!installed_packages])
+}
+lapply(packages, library, character.only = TRUE) |> invisible()
+```
+
+```{r write_bib, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+knitr::write_bib(c(.packages(), packages
+), 'bib/packages.bib')
+```
+
 ## Background of project
 
 With the steady growth in spatial analysis with `R`, there have been attempts to improve map visualization comparable or better than traditional GUI based GIS platforms such as [QGIS](https://qgis.org/en/site/).In this process, several packages have been developed including tmap, Mapdeck, sf among others. The list has not left out ggplot2 which is the bread-and-butter of data visualization in R. When `sf` package was built for wrangling spatial data in a manner similar to regular data.frames in R, the spatial community appreciated the analysis capabilities but were not fully satisfied with visualization of the outputs. This is the niche that has been filled by the development of `mapsf` package. In this tutorial, we are going to see how to use `mapsf` to visualize several vector map types and raster data type. 
@@ -24,7 +48,6 @@ You can install and load the package with the following code:
 # install.packages('mapsf') or the development version
 # remotes::install_github("riatelab/mapsf")
 
-library(mapsf)
 ```
 
 Since it is mapping simple features, loading the library will show _Loading required package: sf_ and of course link to GEOS, GDAL, and PROJ.
@@ -55,7 +78,7 @@ head(study_area) # multipolygon, WGS84 projection zone 20Nm 6 features and 7 fie
 We can as well go ahead and get the column names plus data types of all the attributes in the sf object.
 
 ```{r attributes}
-dplyr::glimpse(study_area)
+glimpse(study_area)
 ```
 
 In this case, one must be understanding the data fully to make sense of what the abbreviated column names mean for example POP, MED, CHOM, ACT. However, the geom column, that is sometimes called geometry, is a unique attribute which stores a list of all the coordinates of the features in the data. When dropped, we end up with a normal data.frame object in `R`.
@@ -264,3 +287,5 @@ mf_scale(size = 5)
 mf_arrow('topleft')
 dev.off()
 ```
+
+# References

@@ -1,4 +1,3 @@
-# Creating 
 library(raster) # For getting shapefile and raster data online GADM and worldclim
 library(mapsf)  # For plotting the simple feature maps
 library(sf)     # For gettinf functions for transforming coordinates

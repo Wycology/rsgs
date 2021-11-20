@@ -1,4 +1,4 @@
-library(raster) # For getting shapefile and raster data online GADM 
+library(raster) # For getting shapefile and raster data onlin
 library(mapsf)  # For plotting the simple feature maps
 library(sf)     # For gettinf functions for transforming coordinates
 library(tidyverse) # Data wrangling package

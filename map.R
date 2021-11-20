@@ -1,4 +1,4 @@
-library(raster) # For getting shapefile and raste
+library(raster) # For getting shapefile and
 library(mapsf)  # For plotting the simple feature maps
 library(sf)     # For gettinf functions for transforming coordinates
 library(tidyverse) # Data wrangling package

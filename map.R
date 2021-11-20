@@ -1,7 +1,7 @@
 library(raster) 
 library(mapsf)  
 library(sf)     
-library(tidyverse) # Data wrangling package
+library(tidyverse) 
 
 kenya <- getData('GADM', country = 'KEN', level = 1)
 kenyasf <- st_as_sf(kenya)

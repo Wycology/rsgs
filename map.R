@@ -1,6 +1,6 @@
 library(raster) 
-library(mapsf)  # For plotting the simple feature maps
-library(sf)     # For gettinf functions for transforming coordinates
+library(mapsf)  
+library(sf)     
 library(tidyverse) # Data wrangling package
 
 kenya <- getData('GADM', country = 'KEN', level = 1)

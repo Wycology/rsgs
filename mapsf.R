@@ -5,7 +5,7 @@
 
 library(mapsf) # for mapping sf objects
 
-mtq <- mf_get_mtq() # Loading the data-set into R environmen
+mtq <- mf_get_mtq() # Loading the data-set into R environm
 
 mf_init(x = mtq, expandBB = rep(0, 4), theme = 'jsk') # Initializing the mapping process
 

@@ -5,7 +5,7 @@
 
 library(mapsf) # for mapping sf objects
 
-mtq <- mf_get_mtq() # L
+mtq <- mf_get_mtq() # 
 
 mf_init(x = mtq, expandBB = rep(0, 4), theme = 'jsk') # Initializing the mapping process
 

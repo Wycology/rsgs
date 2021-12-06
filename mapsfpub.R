@@ -4,7 +4,7 @@ study_area <- mf_get_mtq() # Loading the sample data
 
 mf_init(study_area, expandBB = rep(0, 4), theme = 'candy') # Initating the map  
 
-mf_shadow(study_area, col = 'purple', cex = 2, add = TRUE) # Adding the s
+mf_shadow(study_area, col = 'purple', cex = 2, add = TRUE) # Adding the 
 mf_map(study_area, add = TRUE, border = 'maroon', lwd = 0.5, 
        leg_pos = c(720000, 1628119))
 mf_map(x = study_area, var = c("POP", "MED"), type = "prop_choro", border = "black",

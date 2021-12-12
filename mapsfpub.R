@@ -19,4 +19,4 @@ mf_title('Study Area: Martinique', cex = 2) # Adding the title of the map
 mf_arrow() # Adding the north arrow
 mf_inset_on(x = 'worldmap', pos = 'left') # Locating the inset
 mf_worldmap(study_area, col = "red") # Adding the inset
-mf_inset_off() # Terminating the inset
+mf_inset_off() # Terminating the in

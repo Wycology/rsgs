@@ -2,7 +2,7 @@ library(mapsf) # Loading the package
 
 study_area <- mf_get_mtq() # Loading the sample data
 
-mf_init(study_area, expandBB = rep(0, 4), theme = 'candy') # Initating the map  
+mf_init(study_area, expandBB = rep(0, 4), theme = 'candy') # Initating the ma 
 
 mf_shadow(study_area, col = 'purple', cex = 2, add = TRUE) 
 mf_map(study_area, add = TRUE, border = 'maroon', lwd = 0.5, 

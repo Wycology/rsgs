@@ -15,7 +15,7 @@ mf_map(x = study_area, var = c("POP", "MED"), type = "prop_choro", border = "bla
 mf_scale(cex = 1.5)
 mf_credits(paste0('Sources: IGN, 2018, Package: ', 'mapsf ', 'Version: ', packageVersion('mapsf')), 
            cex = 1.5, bg = 'magenta')
-mf_title('Study Area: Martinique', cex = 2) # Adding the title of the map
+mf_title('Study Area: Martinique', cex = 2) 
 mf_arrow() # Adding the north arrow
 mf_inset_on(x = 'worldmap', pos = 'left') # Locating the inset
 mf_worldmap(study_area, col = "red") # Adding the inset

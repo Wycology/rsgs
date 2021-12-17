@@ -1,6 +1,6 @@
 library(mapsf) 
 
-study_area <- mf_get_mtq() # Loading the sample data
+study_area <- mf_get_mtq() 
 
 mf_init(study_area, expandBB = rep(0, 4), theme = 'candy')
 

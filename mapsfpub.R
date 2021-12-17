@@ -1,4 +1,4 @@
-library(mapsf) # Loading the package
+library(mapsf) 
 
 study_area <- mf_get_mtq() # Loading the sample data
 

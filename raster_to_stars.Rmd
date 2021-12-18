@@ -16,7 +16,6 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 ```{r libs, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
 packages <- c("base",
               'knitr',
@@ -37,38 +36,39 @@ knitr::write_bib(c(
 ), 'bib/packages.bib')
 ```
 
-# Create raster
+# **Create raster**
+
+1.  This is one of the most **interesting** bits of the [*rmarkdown.*]{.ul}
 
 ```{r}
 r <- raster(ncols = 20, nrows = 20)
 ```
 
-
-# Fill raster
+# **Fill raster**
 
 ```{r}
 r[] <- round(rnorm(n = ncell(r)), 2)
 ```
 
-# Plot raster
+# **Plot raster**
 
 ```{r}
 plot(r)
 ```
 
-# Convert raster to stars
+# **Convert raster to stars**
 
 ```{r}
 s <- st_as_stars(r)
 ```
 
-# Plot stars
+# **Plot stars**
 
 ```{r}
 plot(s)
 ```
 
-# Show pixel values
+# **Show pixel values**
 
 ```{r}
 plot(s, text_values = TRUE, 
@@ -76,18 +76,4 @@ plot(s, text_values = TRUE,
      breaks = "equal")
 ```
 
-# References
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# **References**

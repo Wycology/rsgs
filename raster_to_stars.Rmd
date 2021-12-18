@@ -38,7 +38,7 @@ knitr::write_bib(c(
 
 # **Create raster**
 
-1.  This is one of the most **interesting** bits of the [*rmarkdown.*]{.ul}
+1.  This is one of the most **interesting** bits of the [*rmarkdown.*]{.ul} Kind of **Literate Programming.**
 
 ```{r}
 r <- raster(ncols = 20, nrows = 20)

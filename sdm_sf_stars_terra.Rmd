@@ -1,0 +1,90 @@
+---
+title: "<center>'Tidying' `sdm` package to accept `sf`, `stars`, and `terra` spatial data output formats</center>"
+author: "<center>Wyclife Agumba Oluoch (wyclifeoluoch@gmail.com) </center>"
+date: "<center>`r Sys.time()`</center>"
+bibliography: 
+  - bib/packages.bib
+nocite: '@*'
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libs, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+packages <- c("base", 'knitr', 'rmarkdown',
+              'tidyverse', 'sf', 'terra', 'stars',
+              'sdm', 'usdm')
+installed_packages <- packages %in% rownames(installed.packages())
+if(any(installed_packages == FALSE)){
+  install.packages(packages[!installed_packages])
+}
+lapply(packages, library, character.only = TRUE) |> invisible()
+```
+
+```{r write_bib, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+knitr::write_bib(c(
+  .packages(), packages
+), 'bib/packages.bib')
+```
+
+# Introduction
+
+One of the greatest spatial analysis packages in `R` called `raster` has seen great growth in development of spatially sensitive packages such as `sdm` since its inception in **2010**. However, maintenance of the package is likely to be halted in **2023** among other platforms like `maptools`, `sp`, `rgeos`, and `rgdal`. As a response,other spatial analysis packages have come to the surface such as `sf`, `terra`, and `stars`. At its present version (`r packageVersion('sdm')`), the model building process of the package does not support the incoming packages but still run on the older retiring packages. There is therefore need to shift the capabilities of `sdm` package, of course and many other packages depending on the older platforms, to embrace the new file structures produced by the new 'tidy' packages. The new platforms are praised for being able to do more, easier to use, and faster [see](https://keen-swartz-3146c4.netlify.app/older.html). It is in this light that I draft this short post.
+
+# Loading data
+
+## Loading species occurrence data
+
+Using `st_read()` function from `sf` package, we can easily load spatial vector data into `R` in a tidy kind of spatial data that can be easily wrangled by other `tidyverse` packages. Here I load in species occurrence data that comes with the `sdm` pakage.
+
+```{r}
+file <- system.file("external/species.shp", package = "sdm")
+species <- st_read(file) # Note, instead of shapefile(file) I use st_read(file)
+```
+
+## Loading raster data
+
+Here, I read in raster predictor variables using `read_stars()` from `stars` package. 
+
+```{r}
+path <- system.file("external", package = "sdm")
+lst <- list.files(path = path, pattern = 'asc$', full.names = T)
+preds <- read_stars(lst) # Instead of stack() from raster, I use read_stars() from stars package.
+```
+
+# Multicollinearity check
+
+Here I use `st_extract()` function from `sf` to obtain pixel values corresponding to occurrence points. Note `vifcor()`, at its present version (`r packageVersion('usdm')`), does not support `stars` objects from `stars` package and `SpatRaster` or `terra` from `terra` package. This, accordingly, also needs improvement.
+
+```{r}
+st_crs(preds) <- st_crs(species)
+extract <- st_extract(preds, species)
+v <- vifcor(data.frame(elevation = extract$elevation.asc, 
+                       precipitation = extract$precipitation.asc,
+                       temperature = extract$temperature.asc, 
+                       vegetation = extract$vegetation.asc))
+```
+
+# The Barrier
+
+It is however, still not possible to use the `sf` and `stars` objects above directly in `sdmData()` function, meaning no `sdm` model can be built upon them. 
+
+```{r}
+# d <- sdmData(formula=Occurrence~., train=species, predictors=preds)
+```
+
+# The call
+
+It is therefore my humble call, and I hope the larger `sdm` community would agree, that future versions of `sdm` and `usdm` packages should consider accommodating outputs from modern packages such as `sf`, `stars`, and `terra` that we use to prepare data just before building and running the model. The `sdm` community is also concerned with an issue while generating output gui with latest version of `shiny` package (I have not detailed that here).
+
+Personally, I am not a developer but rather a user and I think identifying such looming problems could help developers work around them in time for seamless transition.
+
+Best regards and enjoy the holidays.
+
+# References

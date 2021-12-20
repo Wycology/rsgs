@@ -253,11 +253,11 @@ Again we may need to show a map as an inset from a larger map. For example, a di
 
 ```{r inset}
 mf_init(study_area, expandBB = rep(0, 4), theme = 'dark')
-mf_shadow(study_area, col = 'magenta', cex = 2, add = TRUE)
 mf_layout(title = 'Martinique with inset shown',
           credits = paste0('Sources: IGN, 2018\nAuthor: Wyclife Agumba Oluoch\n',
           'Package: mapsf ',
           packageVersion('mapsf')))
+mf_shadow(study_area, col = 'magenta', cex = 1, add = TRUE)
 mf_map(x = study_area, var = "POPDENS", type = "choro", breaks = "geom", nbreaks = 5,
   col = "Mint", border = "white", lwd = 0.5, leg_pos = "left", 
   leg_title = "Population Density\n(people per km2)", add = TRUE)
@@ -265,6 +265,32 @@ mf_inset_on(x = 'worldmap', pos = 'topright')
 mf_worldmap(study_area, col = "red")
 mf_inset_off()
 ```
+# Buffer 
+
+Might be interesting to have some buffer around the maps
+
+```{r buffer}
+dissolved <- st_union(study_area)
+a <- st_buffer(dissolved, 2500)
+b <- st_buffer(dissolved, 2000)
+c <- st_buffer(dissolved, 1000)
+
+mf_init(study_area, expandBB = rep(0, 4), theme = 'dark')
+mf_layout(title = 'Martinique with inset shown',
+          credits = paste0('Sources: IGN, 2018\nAuthor: Wyclife Agumba Oluoch\n',
+          'Package: mapsf ',
+          packageVersion('mapsf')))
+mf_map(a, add = T, col = 'purple')
+mf_map(b, add = T, col = 'green')
+mf_map(c, add = T, col = 'blue')
+mf_map(x = study_area, var = "POPDENS", type = "choro", breaks = "geom", nbreaks = 5,
+  col = "Mint", border = "white", lwd = 0.5, leg_pos = "left", 
+  leg_title = "Population Density\n(people per km2)", add = TRUE)
+mf_inset_on(x = 'worldmap', pos = 'topright')
+mf_worldmap(study_area, col = "red")
+mf_inset_off()
+```
+
 
 # Fun with background
 

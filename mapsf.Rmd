@@ -315,7 +315,7 @@ mf_inset_off()
 # Exporting a map out to png for publication
 
 ```{r export}
-mf_export(x = study_area, filename = "mtq.png", width = 600, 
+mf_export(x = study_area, filename = "mtq.png", width = 600, #
           theme = "dark", expandBB = c(0,0,0,.3)) 
 mf_shadow(study_area, col = "magenta", add = TRUE)
 mf_map(x = study_area, var = "MED", type = "choro",

@@ -14,7 +14,8 @@ mf_map(x = study_area, var = c("POP", "MED"),
        lwd = 1, leg_pos = c("topright", "right"), 
        leg_title = c("Population","Median\nIncome\n(in euros)"), 
        breaks = "equal", nbreaks = 4, pal = "Reds", leg_val_rnd = c(0, -2), 
-       leg_frame = c(TRUE, TRUE), leg_val_cex = c(1, 1.2)
+       leg_frame = c(TRUE, TRUE), 
+       leg_val_cex = c(1, 1.2)
 )
 mf_scale(cex = 1.5)
 mf_credits(paste0('Sources: IGN, 2018, Package: ', 'mapsf ', 'Version: ', packageVersion('mapsf')), 

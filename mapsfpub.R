@@ -9,8 +9,10 @@ mf_shadow(study_area, col = 'purple',
 mf_map(study_area, add = TRUE, 
        border = 'maroon', lwd = 0.5, 
        leg_pos = c(720000, 1628119))
-mf_map(x = study_area, var = c("POP", "MED"), type = "prop_choro", border = "black",
-       lwd = 1, leg_pos = c("topright", "right"), leg_title = c("Population","Median\nIncome\n(in euros)"), 
+mf_map(x = study_area, var = c("POP", "MED"), 
+       type = "prop_choro", border = "black",
+       lwd = 1, leg_pos = c("topright", "right"), 
+       leg_title = c("Population","Median\nIncome\n(in euros)"), 
        breaks = "equal", nbreaks = 4, pal = "Reds", leg_val_rnd = c(0, -2), 
        leg_frame = c(TRUE, TRUE), leg_val_cex = c(1, 1.2)
 )

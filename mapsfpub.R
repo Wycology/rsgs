@@ -21,7 +21,7 @@ mf_scale(cex = 1.5)
 mf_credits(paste0('Sources: IGN, 2018, Package: ', 'mapsf ', 'Version: ', packageVersion('mapsf')), 
            cex = 1.5, bg = 'magenta')
 mf_title('Study Area: Martinique', cex = 2) 
-mf_arrow() # Adding the north
+mf_arrow() # Adding the 
 mf_inset_on(x = 'worldmap', pos = 'left')
 mf_worldmap(study_area, col = "red") 
 mf_inset_off() 

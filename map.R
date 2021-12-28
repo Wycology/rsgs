@@ -5,14 +5,15 @@ library(tidyverse)
 
 kenya <- getData('GADM', country = 'KEN', level = 1)
 kenya_sf <- st_as_sf(kenya)
-clim <- getData('worldclim', var = 'tmin', res = 10)
-crop <- crop(clim, kenyasf)
-mask <- mask(crop, kenyasf)  
 
-extract <- raster::extract(mask[[c(12,5)]], kenyasf, fun = mean)
+clim <- getData('worldclim', var = 'tmin', res = 10)
+crop <- crop(clim, kenya_sf)
+mask <- mask(crop, kenya_sf)  
+
+extract <- raster::extract(mask[[c(12,5)]], kenya_sf, fun = mean)
 df <- as.data.frame(extract)
 
-kenyasf_mutate <- kenyasf |> mutate(tmin12 = df$tmin12) |> 
+kenyasf_mutate <- kenya_sf |> mutate(tmin12 = df$tmin12) |> 
   mutate(Tmin5 = round(df$tmin5/10)) |> 
   mutate(Tmin12 = round(tmin12/10)) |> 
   relocate(Tmin12, .before = CC_1)

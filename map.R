@@ -20,9 +20,7 @@ kenyasf_mutate <- kenyasf |> mutate(tmin12 = df$tmin12) |>
   relocate(Tmin12, .before = CC_1)
 
 counties <- kenyasf_mutate |> 
-  filter(NAME_1 %in% c("Laikipia", "Nyeri", 
-                       "Nyandarua", "Nakuru", 
-                       "Uasin Gishu"))
+  filter(NAME_1 %in% c("Laikipia", "Nyeri", "Nyandarua", "Nakuru", "Uasin Gishu"))
 
 kenya_mts <- st_transform(kenyasf_mutate, 21097)
 count_mts <- st_transform(counties, 21097)

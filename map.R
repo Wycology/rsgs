@@ -4,9 +4,7 @@ library(sf)
 library(tidyverse) 
 
 kenya <- getData('GADM', country = 'KEN', level = 1)
-kenyasf <- st_as_sf(kenya)
-
-
+kenya_sf <- st_as_sf(kenya)
 clim <- getData('worldclim', var = 'tmin', res = 10)
 crop <- crop(clim, kenyasf)
 mask <- mask(crop, kenyasf)  

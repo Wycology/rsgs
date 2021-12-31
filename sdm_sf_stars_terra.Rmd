@@ -57,7 +57,7 @@ Here, I read in raster predictor variables using `read_stars()` from `stars` pac
 ```{r}
 path <- system.file("external", package = "sdm")
 lst <- list.files(path = path, pattern = 'asc$', full.names = T)
-preds <- read_stars(lst) # Instead of stack() from raster, I use read_stars() from star
+preds <- read_stars(lst) # Instead of stack() from raster, I use read_stars() fr
 ```
 
 # Multicollinearity check

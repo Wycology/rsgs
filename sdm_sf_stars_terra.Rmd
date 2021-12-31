@@ -47,7 +47,7 @@ Using `st_read()` function from `sf` package, we can easily load spatial vector 
 
 ```{r}
 file <- system.file("external/species.shp", package = "sdm")
-species <- st_read(file) # Note, instead o
+species <- st_read(file) 
 ```
 
 ## Loading raster data

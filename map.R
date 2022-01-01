@@ -3,7 +3,7 @@ library(mapsf)
 library(sf)     
 library(tidyverse) 
 
-kenya <- getData('GADM', country = 'KEN', level = 1) # Getting the Kenyan data
+kenya <- getData('GADM', country = 'KEN', level = 1) # Getting the Kenyan da
 kenya_sf <- st_as_sf(kenya)
 
 clim <- getData('worldclim', var = 'tmin', res = 10)

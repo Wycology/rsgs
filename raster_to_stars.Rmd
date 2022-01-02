@@ -59,7 +59,7 @@ plot(r)
 # **Convert raster to stars**
 
 ```{r}
-s <- st_as_stars(r) # This converts a
+s <- st_as_stars(r) # This converts a raster
 ```
 
 # **Plot stars**

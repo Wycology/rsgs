@@ -71,7 +71,7 @@ plot(s)
 
 # **Show pixel values**
 
-```{r}
+```{r plot}
 plot(s, text_values = TRUE, 
      col = terrain.colors(10, alpha = 1), 
      breaks = "equal")

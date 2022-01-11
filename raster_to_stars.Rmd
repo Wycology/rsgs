@@ -47,8 +47,7 @@ r <- raster(ncols = 20, nrows = 20)
 # **Fill raster**
 
 ```{r}
-r[] <- round(rnorm(n = ncell(r)), 
-             2)
+r[] <- round(rnorm(n = ncell(r)),2)
 ```
 
 # **Plot raster**

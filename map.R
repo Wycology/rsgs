@@ -1,6 +1,6 @@
-library(raster) 
-library(mapsf)  
-library(sf)     
+library(raster); library(viridisLite); library(viridis);  
+library(mapsf); library(rayshader); library(av)
+library(sf); library(magick)  
 library(tidyverse) 
 
 kenya <- raster::getData('GADM', country = 'KEN', level = 1) 
@@ -42,3 +42,15 @@ mf_map(kenya_sf_mutate, var = 'Tmin5', type = 'choro', pal = 'Greens', add = TRU
 mf_layout(title = 'Kenya Counties Temperature',
           credits = paste0("Data source: GADM and worldclim ", 'mapsf ',
                            packageVersion('mapsf')))
+
+
+gg_shp <- ggplot(data = kenya_sf_mutate) +
+  geom_sf(aes(fill = Tmin5)) +
+  scale_fill_viridis() +
+  ggtitle('Minimum temperature Kenya') +
+  theme_bw()
+plot_gg(gg_shp, multicore = TRUE, width = 5, height = 5, 
+        scale = 200, windowsize = c(1280, 720), zoom = 0.65, 
+        phi = 50, sunangle = 60, theta = 45)
+
+render_snapshot()

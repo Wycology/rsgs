@@ -7,11 +7,13 @@ kenya <- raster::getData('GADM', country = 'KEN', level = 1)
 kenya_sf <- kenya %>% st_as_sf()
 
 clim <- raster::getData('worldclim', var = 'tmin', res = 10)
-crop <- crop(clim, kenya_sf)
-mask <- mask(crop, kenya_sf)  
 
-extract <- raster::extract(mask[[c(12,5)]], kenya_sf, fun = mean)
-df <- as.data.frame(extract)
+crop <- clim %>% crop(kenya_sf)
+mask <- crop %>% mask(kenya_sf)  
+
+extract <- mask[[c(12,5)]] %>% raster::extract(kenya_sf, fun = mean)
+
+df <- extract %>% as.data.frame()
 
 kenya_sf_mutate <- kenya_sf |> mutate(tmin12 = df$tmin12) |> 
   mutate(Tmin5 = round(df$tmin5/10)) |> 

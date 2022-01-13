@@ -6,7 +6,7 @@ library(tidyverse)
 kenya <- raster::getData('GADM', country = 'KEN', level = 1) 
 kenya_sf <- kenya %>% st_as_sf()
 
-clim <- getData('worldclim', var = 'tmin', res = 10)
+clim <- raster::getData('worldclim', var = 'tmin', res = 10)
 crop <- crop(clim, kenya_sf)
 mask <- mask(crop, kenya_sf)  
 

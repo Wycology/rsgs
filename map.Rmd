@@ -1,5 +1,5 @@
 ---
-title: "<center>**Selected dplyr functions in R**</center>"
+title: "<center>**Mapping 3D in R**</center>"
 author: "<center>Wyclife Agumba Oluoch (wyclifeoluoch@gmail.com) </center>"
 date: "<center>`r Sys.time()`</center>"
 bibliography: 
@@ -13,7 +13,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 
@@ -85,6 +85,8 @@ The next step is to transform the crs of the kenya_sf_mutate from WGS 84 to EPSG
 kenya_sf_transformed <- kenya_sf_mutate %>% st_transform(21097)
 ```
 
+# Choropleth map
+
 Now I build the map.
 
 ```{r}
@@ -96,6 +98,8 @@ mf_layout(title = 'Kenya Counties Temperature',
           credits = paste0("Data source: GADM and worldclim ", 'mapsf ',
                            packageVersion('mapsf')))
 ```
+
+# The 3D map
 
 Lastly, I make a 3D map.
 
@@ -109,5 +113,10 @@ plot_gg(gg_shp, multicore = TRUE, width = 5, height = 5,
         scale = 200, windowsize = c(1280, 720), zoom = 0.65, 
         phi = 50, sunangle = 60, theta = 45)
 ```
+
+
+> Note, I had to generate the plot in the console then add it to the rmarkdown via below code.
+
+![Amazing 3D plot in R](D:/R/rsgs/images/plot_3d.png)
 
 # References

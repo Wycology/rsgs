@@ -1,0 +1,113 @@
+---
+title: "<center>**Selected dplyr functions in R**</center>"
+author: "<center>Wyclife Agumba Oluoch (wyclifeoluoch@gmail.com) </center>"
+date: "<center>`r Sys.time()`</center>"
+bibliography: 
+  - bib/packages.bib
+nocite: '@*'
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r libs, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+packages <- c("base", "knitr", "rmarkdown", "tidyverse", "sf", "magick",
+              "viridisLite", "viridis", "mapsf", "rayshader", "av", "raster")
+installed_packages <- packages %in% rownames(installed.packages())
+if(any(installed_packages == FALSE)){
+  install.packages(packages[!installed_packages])
+}
+lapply(packages, library, character.only = TRUE) |> invisible()
+```
+
+```{r write_bib, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+knitr::write_bib(c(
+  .packages(), packages
+), 'bib/packages.bib')
+```
+
+# Introduction
+
+Here I make some choropleth maps and 3D map using R functionalities.
+I will start by getting the shapefile of Kenya from GADM for all counties in Kenya, that is, level = 1.
+
+```{r}
+kenya <- raster::getData('GADM', country = 'KEN', level = 1) 
+```
+
+I then change the shapefile to sf object.
+
+```{r}
+kenya_sf <- kenya %>% st_as_sf()
+```
+
+I then look for climate data which I get from worldclim database.
+
+```{r}
+clim <- raster::getData('worldclim', var = 'tmin', res = 10)
+```
+
+The next step is to crop and mask the world raster to the boundary of Kenya. In this case, we take the clim data and pass it to crop function and them mask, both from raster package.
+
+```{r}
+clim_masked <- clim %>% 
+  raster::crop(kenya_sf) %>% 
+  raster::mask(kenya_sf)
+```
+
+Since the clim_masked layer has got 12 layers, I want to extract only the 7th layer which corresponds to the month of July. I then set the extracted matrix as a dataframe them rename the column to July_tmin.
+
+```{r}
+clim_july <- clim_masked[[7]] %>% 
+  raster::extract(kenya_sf, fun = mean) %>% 
+  as.data.frame() %>% 
+  mutate(July_tmin = V1/10) %>% 
+  dplyr::select(July_tmin)
+```
+
+
+The next step is to add this extracted data of July_tmin to the kenya_sf object as a column so that we can use it in subsequent mapping.
+
+```{r}
+kenya_sf_mutate <- kenya_sf %>% mutate(clim_july)
+```
+
+The next step is to transform the crs of the kenya_sf_mutate from WGS 84 to EPSG 21097 which is a projected crs hence the units will be in metres on map.
+
+```{r}
+kenya_sf_transformed <- kenya_sf_mutate %>% st_transform(21097)
+```
+
+Now I build the map.
+
+```{r}
+mf_init(kenya_sf_transformed, theme = 'iceberg')
+mf_shadow(kenya_sf_transformed, col = 'purple', cex = 2)
+mf_map(kenya_sf_transformed, add = TRUE)
+mf_map(kenya_sf_transformed, var = 'July_tmin', type = 'choro', pal = 'Greens', add = TRUE)
+mf_layout(title = 'Kenya Counties Temperature',
+          credits = paste0("Data source: GADM and worldclim ", 'mapsf ',
+                           packageVersion('mapsf')))
+```
+
+Lastly, I make a 3D map.
+
+```{r}
+gg_shp <- ggplot(data = kenya_sf_transformed) +
+  geom_sf(aes(fill = July_tmin)) +
+  scale_fill_viridis() +
+  ggtitle('Minimum temperature Kenya') +
+  theme_bw()
+plot_gg(gg_shp, multicore = TRUE, width = 5, height = 5, 
+        scale = 200, windowsize = c(1280, 720), zoom = 0.65, 
+        phi = 50, sunangle = 60, theta = 45)
+```
+
+# References

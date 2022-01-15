@@ -69,7 +69,7 @@ We will now initialize the mapping process. We can think of this as designing th
 
 ```{r initialize}
 mf_init(study_area, expandBB = rep(0, 4), theme = 'iceberg') # This is the layout to throw map onto
-# You can check other possible themes using ?mf_theme
+# You can check other possible themes usin ?mf_theme
 ```
 
 ## Previewing the data to map

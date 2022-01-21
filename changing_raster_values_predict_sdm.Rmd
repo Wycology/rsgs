@@ -1,0 +1,137 @@
+---
+title: "Must prediction in sdm be made on same data using for training model?"
+author: "Wyclife Agumba Oluoch"
+date: "<center>`r Sys.time()`</center>"
+bibliography: 
+  - bib/packages.bib
+nocite: '@*'
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+---
+
+
+```{r libs, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+packages <- c("base",
+              'knitr',
+              'rmarkdown',
+              'sdm',
+              'raster')
+installed_packages <- packages %in% rownames(installed.packages())
+if(any(installed_packages == FALSE)){
+  install.packages(packages[!installed_packages])
+}
+lapply(packages, library, character.only = TRUE) |> invisible()
+```
+
+```{r write_bib, echo=FALSE, warning=FALSE, message=FALSE, include=FALSE}
+knitr::write_bib(c(
+  .packages(), packages
+), 'bib/packages.bib')
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+# Background
+
+I am writing this short article to clear air on whether a change in one or all of raster layers used in building a model will prevent prediction using the trained model.
+
+If a model is trained using say stacked raster layers, say four in total, if values of one raster is changed, the same model will still perform prediction.
+
+Most important is to ensure that the names of the rasters used in training the model are maintained even if values are changed.
+
+Here, I will use data that comes with `sdm` package to enable ease of reproducibility.
+
+# Loading data
+
+```{r}
+file <- system.file("external/species.shp", package = "sdm")
+species <- shapefile(file)
+path <- system.file("external", package = "sdm")
+lst <- list.files(path = path, pattern = 'asc$', full.names = T)
+preds <- stack(lst)
+```
+
+# Creating sdmData object
+
+```{r}
+sdm_data <- sdmData(formula = Occurrence ~., train = species, predictors = preds)
+```
+
+# Creating the model
+
+```{r}
+sdm_model <- sdm(Occurrence ~., data = sdm_data, methods = c('rf', 'svm'), replication = 'boot', n = 3)
+```
+
+# Makiing prediction on the original data
+
+```{r}
+prediction_original <- predict(sdm_model, preds)
+plot(prediction_original[[2]])
+```
+
+# Changing one of the rasters in preds stack
+
+```{r}
+elevation <- preds[['elevation']]
+elevation_doubled <- elevation * 2 
+```
+
+# Feeding the new raster back to preds stack
+
+```{r}
+preds[['elevation']] <- elevation_doubled
+preds_2 <- preds # Preds with one raster values doubled
+```
+
+# Making prediction with one changed raster in the stack
+```{r}
+prediction_changed <- predict(sdm_model, preds_2) 
+plot(prediction_changed[[2]])
+```
+
+# Ploting the two outputs
+
+```{r}
+par(mfrow = c(2,1))
+plot(prediction_original[[2]])
+plot(prediction_changed[[2]])
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

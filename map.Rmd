@@ -35,7 +35,7 @@ knitr::write_bib(c(
 
 # Introduction
 
-Here I make somechoropleth maps and 3D map using R functionalities.
+Here I make somchoropleth maps and 3D map using R functionalities.
 I will start by getting the shapefile of Kenya from GADM for all counties in Kenya, that is, level = 1.
 
 ```{r}

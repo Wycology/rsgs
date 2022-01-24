@@ -48,7 +48,7 @@ I then change the shapefile to sf object.
 kenya_sf <- kenya %>% st_as_sf()
 ```
 
-I then look for climate data that I get from worldclim database.
+I then look for climate data that I ge from worldclim database.
 
 ```{r}
 clim <- raster::getData('worldclim', var = 'tmin', res = 10)
